@@ -1,0 +1,31 @@
+!!! 5
+%html(lang='en')
+  %head
+    %meta(charset='utf-8')
+    %meta(name='description'){:content=>(attr :description)}
+    %meta(name='keywords'){:content=>(attr :keywords)}
+    %title
+      #{attr :doctitle} - Sebastian Daschner
+
+    %link(href="../css/style.css" rel="stylesheet")
+  %body
+    %header
+      %h1
+        %a(href="../index")
+          =doctitle
+    %main
+      =content
+
+    %footer
+      %ul
+        %li
+          %a(href="../../index")
+            Home
+        %li
+          %a(href="../index")
+            Blog
+        %li
+          %a(href="https://twitter.com/DaschnerS")
+            @DaschnerS
+      %span
+        &copy; Sebastian Daschner, CC BY-NC-SA 4.0
