@@ -54,12 +54,10 @@ public class ContentGenerator {
     }
 
     private static void appendDate(final StringBuilder builder, final String date) {
-        builder.append("[");
-        builder.append(DATE_ROLE);
-        builder.append("]#");
+        builder.append("++++\n<span class=\"note\">");
         builder.append(DATE_PREFIX);
         builder.append(date);
-        builder.append("#\n");
+        builder.append("</span>\n++++\n");
     }
 
     private static void appendContent(final StringBuilder builder, final String abstractContent) {

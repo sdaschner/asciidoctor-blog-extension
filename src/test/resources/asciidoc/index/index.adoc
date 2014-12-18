@@ -1,0 +1,4 @@
+= Index
+Sebastian Daschner
+
+entries::../entries/[]

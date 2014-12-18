@@ -33,7 +33,7 @@ public class EntriesExtractor {
 
         final File[] entryFiles = entriesDir.listFiles((dir, name) -> name.endsWith(".adoc"));
 
-        return Stream.of(entryFiles).map(e -> createEntry(e, entriesDir)).sorted(Comparator.comparing(Entry::getDate))
+        return Stream.of(entryFiles).map(e -> createEntry(e, entriesDir)).sorted(Comparator.comparing(Entry::getDate).reversed())
                 .collect(Collectors.toList());
     }
 
