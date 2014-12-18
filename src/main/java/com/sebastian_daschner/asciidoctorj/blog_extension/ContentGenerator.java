@@ -1,7 +1,8 @@
 package com.sebastian_daschner.asciidoctorj.blog_extension;
 
 import org.asciidoctor.Asciidoctor;
-import org.asciidoctor.Options;
+import org.asciidoctor.AttributesBuilder;
+import org.asciidoctor.OptionsBuilder;
 
 /**
  * @author Sebastian Daschner
@@ -14,9 +15,19 @@ public class ContentGenerator {
     private static final String DATE_PREFIX = "Published on ";
 
     /**
+     * The "more" link text.
+     */
+    private static final String MORE_TITLE = "more";
+
+    /**
      * Represents the CSS class on the published-on span.
      */
-    private static final String DATE_ROLE = "note";
+    private static final String DATE_CSS_CLASS = "note";
+    /**
+     * Represents the CSS class on the "more" link.
+     */
+    private static final String MORE_CSS_CLASS = "more";
+
     private final Asciidoctor asciidoctor;
 
     public ContentGenerator(final Asciidoctor asciidoctor) {
@@ -24,15 +35,20 @@ public class ContentGenerator {
     }
 
     public String generate(final Entry entry) {
-        return asciidoctor.convert(generateContent(entry), new Options());
+        final AttributesBuilder attributes = AttributesBuilder.attributes().linkAttrs(true);
+        final OptionsBuilder options = OptionsBuilder.options().attributes(attributes);
+
+        return asciidoctor.convert(generateContent(entry), options);
     }
 
     private static String generateContent(final Entry entry) {
-        StringBuilder builder = new StringBuilder();
+        final StringBuilder builder = new StringBuilder();
+        final String link = convertLink(entry.getLink());
 
-        appendTitle(builder, entry.getTitle(), convertLink(entry.getLink()));
+        appendTitle(builder, entry.getTitle(), link);
         appendDate(builder, entry.getDate());
         appendContent(builder, entry.getAbstractContent());
+        appendMoreLink(builder, link);
 
         return builder.toString();
     }
@@ -53,8 +69,21 @@ public class ContentGenerator {
         builder.append('\n');
     }
 
+    private static void appendMoreLink(final StringBuilder builder, final String link) {
+        builder.append("link:");
+        builder.append(link);
+        builder.append("[\"");
+        builder.append(MORE_TITLE);
+        builder.append("\", role=\"");
+        builder.append(MORE_CSS_CLASS);
+        builder.append("\"]");
+        builder.append('\n');
+    }
+
     private static void appendDate(final StringBuilder builder, final String date) {
-        builder.append("++++\n<span class=\"note\">");
+        builder.append("++++\n<span class=\"");
+        builder.append(DATE_CSS_CLASS);
+        builder.append("\">");
         builder.append(DATE_PREFIX);
         builder.append(date);
         builder.append("</span>\n++++\n");
@@ -62,7 +91,7 @@ public class ContentGenerator {
 
     private static void appendContent(final StringBuilder builder, final String abstractContent) {
         builder.append(abstractContent);
-        builder.append('\n');
+        builder.append(" + \n");
     }
 
 }
