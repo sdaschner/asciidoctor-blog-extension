@@ -3,12 +3,14 @@ package com.sebastian_daschner.asciidoctorj.blog_extension;
 import org.asciidoctor.Asciidoctor;
 import org.asciidoctor.OptionsBuilder;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.File;
-import java.net.URISyntaxException;
-import java.nio.file.Paths;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.stream.Collectors;
+
+import static org.junit.Assert.assertEquals;
 
 public class BlogEntriesProcessorTest {
 
@@ -17,22 +19,23 @@ public class BlogEntriesProcessorTest {
     @Before
     public void setUp() {
         asciidoctor = Asciidoctor.Factory.create();
-        asciidoctor.javaExtensionRegistry().blockMacro("entries", BlogEntriesProcessor.class);
     }
 
     @Test
-    @Ignore
     public void testProcess() throws Exception {
-        final File file = getResourceFile("/asciidoc/index/index.adoc");
-        final File baseDir = getResourceFile("/asciidoc/index/");
-        final File templateDir = getResourceFile("/templates/index/");
+        final File file = TestUtils.getResourceFile("/asciidoc/index/index.adoc");
+        final File baseDir = TestUtils.getResourceFile("/asciidoc/index/");
+        final File templateDir = TestUtils.getResourceFile("/templates/");
 
-        final String output = asciidoctor.convertFile(file, OptionsBuilder.options().baseDir(baseDir).templateDir(templateDir));
-        System.out.println(output);
-    }
+        asciidoctor.convertFile(file, OptionsBuilder.options().baseDir(baseDir).templateDir(templateDir));
 
-    private File getResourceFile(final String fileName) throws URISyntaxException {
-        return Paths.get(getClass().getResource(fileName).toURI()).toFile();
+        final Path expectedFile = TestUtils.getResourceFile("/asciidoc/index/expectedIndex.html").toPath();
+        final Path actualFile = TestUtils.getResourceFile("/asciidoc/index/index.html").toPath();
+
+        final String expectedOutput = Files.lines(expectedFile).collect(Collectors.joining());
+        final String actualOutput = Files.lines(actualFile).collect(Collectors.joining());
+
+        assertEquals(expectedOutput, actualOutput);
     }
 
 }

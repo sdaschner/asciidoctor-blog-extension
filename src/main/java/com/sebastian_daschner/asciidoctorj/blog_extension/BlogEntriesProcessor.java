@@ -9,12 +9,14 @@ import org.jruby.RubySymbol;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
+ * Renders the {@code entries::<path_to_entries>[]} macro.
+ * The entries which are located under the given path are extracted as teasers and inserted at the current location.
+ *
  * @author Sebastian Daschner
  */
 public class BlogEntriesProcessor extends BlockMacroProcessor {
@@ -34,11 +36,10 @@ public class BlogEntriesProcessor extends BlockMacroProcessor {
         final List<String> content;
 
         try {
-            final Path entriesDir = Paths.get(getBaseDir(abstractBlock.document()) + '/' + target);
+            final Path entriesDir = getEntriesDir(abstractBlock, target);
             final List<Entry> entries = extractor.extract(entriesDir);
 
             content = entries.stream().map(generator::generate).collect(Collectors.toList());
-//            content = Collections.emptyList();
         } catch (Exception e) {
             System.err.println("Could not render entries, reason: " + e.getMessage());
             throw new RuntimeException(e);
@@ -47,13 +48,15 @@ public class BlogEntriesProcessor extends BlockMacroProcessor {
         return createBlock(abstractBlock, "pass", content, attributes, getConfig());
     }
 
-    private String getBaseDir(final DocumentRuby document) {
-        final Map<Object, Object> documentOptions = document.getOptions();
+    private Path getEntriesDir(final AbstractBlock abstractBlock, final String target) {
+        final Map<Object, Object> documentOptions = abstractBlock.document().getOptions();
 
-        return documentOptions.entrySet().stream()
+        final String currentDir = documentOptions.entrySet().stream()
                 .filter(e -> "base_dir".equals(RubySymbol.objectToSymbolString((RubySymbol) e.getKey())))
                 .map(e -> (String) e.getValue())
                 .findFirst().orElse("");
+
+        return Paths.get(currentDir + '/' + target);
     }
 
 }

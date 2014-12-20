@@ -5,12 +5,14 @@ import org.asciidoctor.AttributesBuilder;
 import org.asciidoctor.OptionsBuilder;
 
 /**
+ * Generates the content which is inserted for the entries.
+ *
  * @author Sebastian Daschner
  */
 public class ContentGenerator {
 
     /**
-     * The pushlished-on date prefix text.
+     * The published-on date prefix text.
      */
     private static final String DATE_PREFIX = "Published on ";
 
@@ -20,11 +22,12 @@ public class ContentGenerator {
     private static final String MORE_TITLE = "more";
 
     /**
-     * Represents the CSS class on the published-on span.
+     * The CSS class on the published-on span.
      */
     private static final String DATE_CSS_CLASS = "note";
+
     /**
-     * Represents the CSS class on the "more" link.
+     * The CSS class on the "more" link.
      */
     private static final String MORE_CSS_CLASS = "more";
 
@@ -69,17 +72,6 @@ public class ContentGenerator {
         builder.append('\n');
     }
 
-    private static void appendMoreLink(final StringBuilder builder, final String link) {
-        builder.append("link:");
-        builder.append(link);
-        builder.append("[\"");
-        builder.append(MORE_TITLE);
-        builder.append("\", role=\"");
-        builder.append(MORE_CSS_CLASS);
-        builder.append("\"]");
-        builder.append('\n');
-    }
-
     private static void appendDate(final StringBuilder builder, final String date) {
         builder.append("++++\n<span class=\"");
         builder.append(DATE_CSS_CLASS);
@@ -92,6 +84,17 @@ public class ContentGenerator {
     private static void appendContent(final StringBuilder builder, final String abstractContent) {
         builder.append(abstractContent);
         builder.append(" + \n");
+    }
+
+    private static void appendMoreLink(final StringBuilder builder, final String link) {
+        builder.append("link:");
+        builder.append(link);
+        builder.append("[\"");
+        builder.append(MORE_TITLE);
+        builder.append("\", role=\"");
+        builder.append(MORE_CSS_CLASS);
+        builder.append("\"]");
+        builder.append('\n');
     }
 
 }

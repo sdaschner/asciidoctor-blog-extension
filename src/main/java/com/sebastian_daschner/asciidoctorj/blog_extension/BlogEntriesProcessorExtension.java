@@ -4,6 +4,8 @@ import org.asciidoctor.Asciidoctor;
 import org.asciidoctor.extension.spi.ExtensionRegistry;
 
 /**
+ * Registers the {@link BlogEntriesProcessor}.
+ *
  * @author Sebastian Daschner
  */
 public class BlogEntriesProcessorExtension implements ExtensionRegistry {

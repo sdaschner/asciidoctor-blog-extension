@@ -1,0 +1,8 @@
+= Third entry
+Sebastian Daschner
+2014-12-20
+
+[[abstract]]
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ut pulvinar lectus.
+
+Pellentesque porta velit a elit aliquam, quis ullamcorper sapien dapibus.

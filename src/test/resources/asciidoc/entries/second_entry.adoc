@@ -1,0 +1,8 @@
+= Second entry
+Sebastian Daschner
+2014-12-13
+
+[[abstract]]
+Lorem ipsum dolor sit amet adipiscing elit.
+
+Lorem ipsum dolor sit amet ...

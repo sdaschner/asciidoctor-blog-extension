@@ -14,10 +14,15 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
+ * Extracts the {@link Entry}s from the entries directory.
+ *
  * @author Sebastian Daschner
  */
 public class EntriesExtractor {
 
+    /**
+     * The AsciiDoc ID of the abstract content blog.
+     */
     private static final String ABSTRACT_CONTENT_ID = "abstract";
     private final Asciidoctor asciidoctor;
 
