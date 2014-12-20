@@ -58,7 +58,7 @@ public class ContentGenerator {
 
     private static String convertLink(final String link) {
         if (link.endsWith(".adoc"))
-            return link.replace(".adoc", ".html");
+            return link.replace(".adoc", "");
         return link;
     }
 
