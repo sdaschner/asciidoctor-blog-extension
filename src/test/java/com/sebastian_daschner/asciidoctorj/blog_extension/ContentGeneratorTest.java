@@ -14,13 +14,13 @@ public class ContentGeneratorTest {
     private ContentGenerator classUnderTest;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         asciidoctor = Asciidoctor.Factory.create();
         classUnderTest = new ContentGenerator(asciidoctor);
     }
 
     @Test
-    public void testGenerate() throws Exception {
+    public void testGenerate() {
         final String expectedSource = "== link:entries/test_entry[Test entry]\n" +
                 "++++\n<span class=\"note\">Published on 2014-12-12</span>\n++++\n" +
                 "Lorem ipsum dolor sit amet + \n" +

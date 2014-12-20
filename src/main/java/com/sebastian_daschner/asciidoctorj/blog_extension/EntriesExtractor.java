@@ -1,6 +1,8 @@
 package com.sebastian_daschner.asciidoctorj.blog_extension;
 
 import org.asciidoctor.Asciidoctor;
+import org.asciidoctor.AttributesBuilder;
+import org.asciidoctor.OptionsBuilder;
 import org.asciidoctor.ast.ContentPart;
 import org.asciidoctor.ast.DocumentHeader;
 import org.asciidoctor.ast.StructuredDocument;
@@ -50,12 +52,17 @@ public class EntriesExtractor {
 
         final StructuredDocument structuredDocument = asciidoctor.readDocumentStructure(entryFile, new HashMap<>());
 
-        final String abstractContent = structuredDocument.getParts().stream().filter(p -> ABSTRACT_CONTENT_ID.equals(p.getId()))
-                .map(ContentPart::getContent).findAny().orElse("");
+        final String abstractContent = structuredDocument.getPartById(ABSTRACT_CONTENT_ID).getContent();
+        final String filteredContent = filterContent(abstractContent);
 
         final String link = directory.getName() + '/' + entryFile.getName();
 
-        return new Entry(abstractContent, title, date, link);
+        return new Entry(filteredContent, title, date, link);
+    }
+
+    private static String filterContent(final String abstractContent) {
+        // dirty hack to remove <br> which are already included in ContentPart#getContent
+        return abstractContent.replace("<br>", " + ");
     }
 
 }

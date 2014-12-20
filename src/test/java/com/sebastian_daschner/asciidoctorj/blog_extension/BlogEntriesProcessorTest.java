@@ -6,6 +6,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.stream.Collectors;
@@ -22,7 +24,7 @@ public class BlogEntriesProcessorTest {
     }
 
     @Test
-    public void testProcess() throws Exception {
+    public void testProcess() throws URISyntaxException, IOException {
         final File file = TestUtils.getResourceFile("/asciidoc/index/index.adoc");
         final File baseDir = TestUtils.getResourceFile("/asciidoc/index/");
         final File templateDir = TestUtils.getResourceFile("/templates/");
