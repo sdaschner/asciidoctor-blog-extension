@@ -24,7 +24,7 @@ public class EntriesExtractorTest {
     @Test
     public void testExtract() throws URISyntaxException {
         final Entry firstEntry = new Entry("Lorem ipsum dolor sit amet.", "First entry", "2014-12-01", "entries/first_entry.adoc");
-        final Entry secondEntry = new Entry("Lorem ipsum dolor sit amet adipiscing elit.", "Second entry", "2014-12-13", "entries/second_entry.adoc");
+        final Entry secondEntry = new Entry("Lorem ipsum dolor sit amet `adipiscing` elit.", "Second entry", "2014-12-13", "entries/second_entry.adoc");
         final Entry thirdEntry = new Entry("Lorem ipsum dolor sit amet, consectetur adipiscing elit. + \nCras ut pulvinar lectus.", "Third entry",
                 "2014-12-20", "entries/third_entry.adoc");
 

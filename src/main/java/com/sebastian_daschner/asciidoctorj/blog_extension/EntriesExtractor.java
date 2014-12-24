@@ -61,8 +61,10 @@ public class EntriesExtractor {
     }
 
     private static String filterContent(final String abstractContent) {
-        // dirty hack to remove <br> which are already included in ContentPart#getContent
-        return abstractContent.replace("<br>", " + ");
+        // dirty hack to remove HTML tags which are already included in ContentPart#getContent
+        // TODO need better solution
+        return abstractContent.replace("<br>", " + ").replaceAll("</?code>", "`");
+
     }
 
 }
