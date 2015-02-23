@@ -21,10 +21,11 @@ public class ContentGeneratorTest {
 
     @Test
     public void testGenerate() {
-        final String expectedSource = "== link:entries/test_entry[Test entry]\n" +
+        final String expectedSource = "++++\n<div class=\"sect1\">\n++++\n" +
                 "++++\n<span class=\"note\">Published on 2014-12-12</span>\n++++\n" +
+                "++++\n<h2><a href=\"entries/test_entry\">Test entry</a></h2>\n++++\n" +
                 "Lorem ipsum dolor sit amet + \n" +
-                "link:entries/test_entry[\"more\", role=\"more\"]\n";
+                "link:entries/test_entry[\"more\", role=\"more\"]\n++++\n</div>\n++++\n";
         final OptionsBuilder options = OptionsBuilder.options().attributes(AttributesBuilder.attributes().linkAttrs(true));
         final String expectedOutput = asciidoctor.convert(expectedSource, options);
 
