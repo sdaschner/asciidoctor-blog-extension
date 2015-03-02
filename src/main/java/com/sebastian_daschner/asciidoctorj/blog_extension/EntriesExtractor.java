@@ -1,9 +1,6 @@
 package com.sebastian_daschner.asciidoctorj.blog_extension;
 
 import org.asciidoctor.Asciidoctor;
-import org.asciidoctor.AttributesBuilder;
-import org.asciidoctor.OptionsBuilder;
-import org.asciidoctor.ast.ContentPart;
 import org.asciidoctor.ast.DocumentHeader;
 import org.asciidoctor.ast.StructuredDocument;
 
@@ -55,7 +52,7 @@ public class EntriesExtractor {
         final String abstractContent = structuredDocument.getPartById(ABSTRACT_CONTENT_ID).getContent();
         final String filteredContent = filterContent(abstractContent);
 
-        final String link = directory.getName() + '/' + entryFile.getName();
+        final String link = '/' + directory.getName() + '/' + entryFile.getName();
 
         return new Entry(filteredContent, title, date, link);
     }
