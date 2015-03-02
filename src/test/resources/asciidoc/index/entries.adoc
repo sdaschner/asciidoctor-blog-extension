@@ -1,0 +1,5 @@
+= Entries
+Sebastian Daschner
+2014-12-01
+
+entries::../entries/[oneLine,size=2]

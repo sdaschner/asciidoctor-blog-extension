@@ -29,7 +29,18 @@ public class ContentGeneratorTest {
         final OptionsBuilder options = OptionsBuilder.options().attributes(AttributesBuilder.attributes().linkAttrs(true));
         final String expectedOutput = asciidoctor.convert(expectedSource, options);
 
-        final String actualOutput = classUnderTest.generate(new Entry("Lorem ipsum dolor sit amet", "Test entry", "2014-12-12", "entries/test_entry"));
+        final String actualOutput = classUnderTest.generate(new Entry("Lorem ipsum dolor sit amet", "Test entry", "2014-12-12", "entries/test_entry"), false);
+
+        assertEquals(expectedOutput, actualOutput);
+    }
+
+    @Test
+    public void testGenerateOneLine() {
+        final String expectedSource ="link:entries/test_entry[\"Test entry\"]\n";
+        final OptionsBuilder options = OptionsBuilder.options().attributes(AttributesBuilder.attributes().linkAttrs(true));
+        final String expectedOutput = asciidoctor.convert(expectedSource, options);
+
+        final String actualOutput = classUnderTest.generate(new Entry("Lorem ipsum dolor sit amet", "Test entry", "2014-12-12", "entries/test_entry"), true);
 
         assertEquals(expectedOutput, actualOutput);
     }

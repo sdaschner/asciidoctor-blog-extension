@@ -37,11 +37,16 @@ public class ContentGenerator {
         this.asciidoctor = asciidoctor;
     }
 
-    public String generate(final Entry entry) {
+    public String generate(final Entry entry, final boolean oneLine) {
         final AttributesBuilder attributes = AttributesBuilder.attributes().linkAttrs(true);
         final OptionsBuilder options = OptionsBuilder.options().attributes(attributes);
 
-        return asciidoctor.convert(generateContent(entry), options);
+        final String content = oneLine ? generateOneLine(entry) : generateContent(entry);
+        return asciidoctor.convert(content, options);
+    }
+
+    private static String generateOneLine(final Entry entry) {
+        return "link:" + convertLink(entry.getLink()) + "[\"" + entry.getTitle() + "\"]\n";
     }
 
     private static String generateContent(final Entry entry) {

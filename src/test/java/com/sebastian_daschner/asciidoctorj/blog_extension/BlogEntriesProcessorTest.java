@@ -24,7 +24,7 @@ public class BlogEntriesProcessorTest {
     }
 
     @Test
-    public void testProcess() throws URISyntaxException, IOException {
+    public void testProcessIndex() throws URISyntaxException, IOException {
         final File file = TestUtils.getResourceFile("/asciidoc/index/index.adoc");
         final File baseDir = TestUtils.getResourceFile("/asciidoc/index/");
         final File templateDir = TestUtils.getResourceFile("/templates/");
@@ -33,6 +33,23 @@ public class BlogEntriesProcessorTest {
 
         final Path expectedFile = TestUtils.getResourceFile("/asciidoc/index/expectedIndex.html").toPath();
         final Path actualFile = TestUtils.getResourceFile("/asciidoc/index/index.html").toPath();
+
+        final String expectedOutput = Files.lines(expectedFile).collect(Collectors.joining());
+        final String actualOutput = Files.lines(actualFile).collect(Collectors.joining());
+
+        assertEquals(expectedOutput, actualOutput);
+    }
+
+    @Test
+    public void testProcessEntries() throws URISyntaxException, IOException {
+        final File file = TestUtils.getResourceFile("/asciidoc/index/entries.adoc");
+        final File baseDir = TestUtils.getResourceFile("/asciidoc/index/");
+        final File templateDir = TestUtils.getResourceFile("/templates/");
+
+        asciidoctor.convertFile(file, OptionsBuilder.options().baseDir(baseDir).templateDir(templateDir));
+
+        final Path expectedFile = TestUtils.getResourceFile("/asciidoc/index/expectedEntries.html").toPath();
+        final Path actualFile = TestUtils.getResourceFile("/asciidoc/index/entries.html").toPath();
 
         final String expectedOutput = Files.lines(expectedFile).collect(Collectors.joining());
         final String actualOutput = Files.lines(actualFile).collect(Collectors.joining());
