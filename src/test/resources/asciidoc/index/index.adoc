@@ -2,4 +2,4 @@
 Sebastian Daschner
 2014-12-01
 
-entries::../entries/[]
+entries::../entries/[size=2]

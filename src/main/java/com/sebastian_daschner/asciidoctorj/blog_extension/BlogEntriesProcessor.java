@@ -22,18 +22,14 @@ import java.util.stream.Stream;
  */
 public class BlogEntriesProcessor extends BlockMacroProcessor {
 
-    private final EntriesExtractor extractor;
-    private final ContentGenerator generator;
-
     public BlogEntriesProcessor(final String macroName, final Map<String, Object> config) {
         super(macroName, config);
-
-        extractor = new EntriesExtractor(Asciidoctor.Factory.create());
-        generator = new ContentGenerator(Asciidoctor.Factory.create());
     }
 
     @Override
     public Block process(final AbstractBlock abstractBlock, final String target, final Map<String, Object> attributes) {
+        final EntriesExtractor extractor = new EntriesExtractor(Asciidoctor.Factory.create());
+        final ContentGenerator generator = new ContentGenerator(Asciidoctor.Factory.create());
         final List<String> content;
 
         try {
